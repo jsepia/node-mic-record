@@ -90,6 +90,11 @@ exports.start = function (options) {
   cp.on('error', function (err) {
     throw err
   })
+  cp.on('exit', function (exitCode, signal) {
+    if (exitCode) {
+      throw err('The ', cmd, ' process exited with ', signal)
+    }
+  })
   var rec = cp.stdout
 
   if (options.verbose) {
