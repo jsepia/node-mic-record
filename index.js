@@ -87,6 +87,9 @@ exports.start = function (options) {
     cmdOptions.env = Object.assign({}, process.env, { AUDIODEV: options.device })
   }
   cp = spawn(cmd, cmdArgs, cmdOptions)
+  cp.on('error', function (err) {
+    throw err
+  })
   var rec = cp.stdout
 
   if (options.verbose) {
